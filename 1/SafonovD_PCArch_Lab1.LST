@@ -1,0 +1,88 @@
+Turbo Assembler	 Version 3.0	    09/15/19 13:51:36	    Page 1
+01337.asm
+
+
+
+      1				     ﻿;NAME CODE OPERAND
+      2
+      3				     ;сегмент стека
+      4	0000			     sseg    segment stack   'stack'
+      5	0000  80*(??)			     db		     128 dup(?)
+      6	0080			     sseg    ends
+      7
+      8				     ; DATA WRITING TO SEGMENT
+      9	0000			     dseg    segment 'data'
+     10
+     11				     ; текст
+     12	0000  44 6F 6E E2 80 99	74+		     db	     "Don’t bite off more than you can chew.",     '-99.378'
+     13	      20 62 69 74 65 20	6F+
+     14	      66 66 20 6D 6F 72	65+
+     15	      20 74 68 61 6E 20	79+
+     16	      6F 75 20 63 61 6E	20+
+     17	      63 68 65 77 2E 2D	39+
+     18	      39 2E 33 37 38
+     19				     ; BYTE
+     20	002F  DE		     dbA     db	     222
+     21	0030  A2		     dbB     db	     -94
+     22				     ; WORD
+     23	0031  00DE		     dwA     dw	     222
+     24	0033  FFA2		     dwB     dw	     -94
+     25	0035  AFCD		     dwC     dw	     45005
+     26	0037  B081		     dwD     dw	     -20351
+     27				     ; DOUBLE WORD
+     28	0039  000000DE		     ddA     dd	     222
+     29	003D  FFFFFFA2		     ddB     dd	     -94
+     30	0041  0000AFCD		     ddC     dd	     45005
+     31	0045  FFFFB081		     ddD     dd	     -20351
+     32	0049  000A6E61		     ddE     dd	     683617
+     33	004D  FFFD0B22		     ddF     dd	     -193758
+     34	0051			     dseg    ends ;DATA	WRITING	END
+     35
+     36				     ;CODE SEGMENT
+     37	0000			     cseg    segment 'code'
+     38				     assume  cs:cseg, ds:dseg, ss:sseg
+     39
+     40				     ;мітка початку	програми з ім’ям	start
+     41	0000  B8 0000s		     start:  mov     ax, dseg
+     42	0003  8E D8			     mov     ds, ax
+     43				     ;повернення керування ОС
+     44	0005  B4 4C			     mov     ah, 4Ch
+     45	0007  CD 21			     int     21h
+     46	0009			     cseg    ends
+     47					     end     start   ;END
+Turbo Assembler	 Version 3.0	    09/15/19 13:51:36	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "09/15/19"
+??FILENAME			  Text	 "01337	  "
+??TIME				  Text	 "13:51:36"
+??VERSION			  Number 0300
+@CPU				  Text	 0101H
+@CURSEG				  Text	 CSEG
+@FILENAME			  Text	 01337
+@WORDSIZE			  Text	 2
+DBA				  Byte	 DSEG:002F
+DBB				  Byte	 DSEG:0030
+DDA				  Dword	 DSEG:0039
+DDB				  Dword	 DSEG:003D
+DDC				  Dword	 DSEG:0041
+DDD				  Dword	 DSEG:0045
+DDE				  Dword	 DSEG:0049
+DDF				  Dword	 DSEG:004D
+DWA				  Word	 DSEG:0031
+DWB				  Word	 DSEG:0033
+DWC				  Word	 DSEG:0035
+DWD				  Word	 DSEG:0037
+START				  Near	 CSEG:0000
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+CSEG				  16  0009 Para	  none	  CODE
+DSEG				  16  0051 Para	  none	  DATA
+SSEG				  16  0080 Para	  Stack	  STACK
+
